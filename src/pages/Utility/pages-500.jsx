@@ -1,13 +1,16 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import { Container, Row, Col } from "reactstrap"
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container, Row, Col } from "reactstrap";
 
 //Import Images
-import error from "../../assets/images/error-img.png"
+import error from "../../assets/images/error-img.png";
+import { useTranslation } from "react-i18next";
 
 const Pages500 = () => {
-   //meta title
-   document.title = "500 Error Page | Skote - Vite React Admin & Dashboard Template";
+  //meta title
+  document.title = "500 Error Page ";
+
+  const { t } = useTranslation();
 
   return (
     <React.Fragment>
@@ -17,16 +20,12 @@ const Pages500 = () => {
             <Col lg="12">
               <div className="text-center mb-5">
                 <h1 className="display-2 font-weight-medium">
-                  5<i className="bx bx-buoy bx-spin text-primary display-3" />
-                  0
+                  5<i className="bx bx-buoy bx-spin text-primary display-3" />0
                 </h1>
-                <h4 className="text-uppercase">Internal Server Error</h4>
+                <h4 className="text-uppercase"> {t("error.title500")}</h4>
                 <div className="mt-5 text-center">
-                  <Link
-                    className="btn btn-primary "
-                    to="/dashboard"
-                  >
-                    Back to Dashboard
+                  <Link className="btn btn-primary " to="/dashboard">
+                    {t("error.back-to")}
                   </Link>
                 </div>
               </div>
@@ -42,7 +41,7 @@ const Pages500 = () => {
         </Container>
       </div>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Pages500
+export default Pages500;

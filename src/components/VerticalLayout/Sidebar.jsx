@@ -14,8 +14,7 @@ import logoLightPng from "../../assets/images/logo-light.png";
 import logoLightSvg from "../../assets/images/logo-light.svg";
 import logoDark from "../../assets/images/logo-dark.png";
 
-const Sidebar = props => {
-
+const Sidebar = (props) => {
   return (
     <React.Fragment>
       <div className="vertical-menu">
@@ -37,11 +36,12 @@ const Sidebar = props => {
               <img src={logoLightPng} alt="" height="19" />
             </span>
           </Link>
+          <div className="partner">TÊN ĐỐI tác</div>
         </div>
         <div data-simplebar className="h-100">
           {props.type !== "condensed" ? <SidebarContent /> : <SidebarContent />}
         </div>
-        
+
         <div className="sidebar-background"></div>
       </div>
     </React.Fragment>
@@ -52,7 +52,7 @@ Sidebar.propTypes = {
   type: PropTypes.string,
 };
 
-const mapStatetoProps = state => {
+const mapStatetoProps = (state) => {
   return {
     layout: state.Layout,
   };

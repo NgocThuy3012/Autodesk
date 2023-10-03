@@ -1,7 +1,18 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import { Row, Col, CardBody, Card, Alert, Container, Form, Input, FormFeedback, Label } from "reactstrap";
+import {
+  Row,
+  Col,
+  CardBody,
+  Card,
+  Alert,
+  Container,
+  Form,
+  Input,
+  FormFeedback,
+  Label,
+} from "reactstrap";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -23,22 +34,25 @@ import { loginUser, socialLogin } from "../../store/actions";
 // import images
 import profile from "../../assets/images/profile-img.png";
 import logo from "../../assets/images/logo.svg";
+import { useTranslation } from "react-i18next";
 
 //Import config
 // import { facebook, google } from "../../config";
 
-const Login = props => {
+const Login = (props) => {
   //meta title
-  document.title="Login | Skote - Vite React Admin & Dashboard Template";
+  document.title = "Login ";
   const dispatch = useDispatch();
+
+  const { t } = useTranslation();
 
   const validation = useFormik({
     // enableReinitialize : use this flag when initial values needs to be changed
     enableReinitialize: true,
 
     initialValues: {
-      email: "admin@themesbrand.com" || '',
-      password: "123456" || '',
+      email: "admin@themesbrand.com" || "",
+      password: "123456" || "",
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
@@ -46,10 +60,10 @@ const Login = props => {
     }),
     onSubmit: (values) => {
       dispatch(loginUser(values, props.history));
-    }
+    },
   });
 
-  const { error } = useSelector(state => ({
+  const { error } = useSelector((state) => ({
     error: state.Login.error,
   }));
 
@@ -79,7 +93,7 @@ const Login = props => {
   };
 
   //handleGoogleLoginResponse
-  const googleResponse = response => {
+  const googleResponse = (response) => {
     signIn(response, "google");
   };
 
@@ -87,13 +101,12 @@ const Login = props => {
   // const twitterResponse = e => {}
 
   //handleFacebookLoginResponse
-  const facebookResponse = response => {
+  const facebookResponse = (response) => {
     signIn(response, "facebook");
   };
 
   return (
     <React.Fragment>
-
       <div className="home-btn d-none d-sm-block">
         <Link to="/" className="text-dark">
           <i className="fas fa-home h2" />
@@ -108,8 +121,8 @@ const Login = props => {
                   <Row>
                     <Col xs={7}>
                       <div className="text-primary p-4">
-                        <h5 className="text-primary">Welcome Back !</h5>
-                        <p>Sign in to continue to Skote.</p>
+                        <h5 className="text-primary">{t("login.welcome")}</h5>
+                        <p>{t("login.signin")}</p>
                       </div>
                     </Col>
                     <Col className="col-5 align-self-end">
@@ -148,35 +161,47 @@ const Login = props => {
                         <Input
                           name="email"
                           className="form-control"
-                          placeholder="Enter email"
+                          placeholder={t("login.enter-email")}
                           type="email"
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           value={validation.values.email || ""}
                           invalid={
-                            validation.touched.email && validation.errors.email ? true : false
+                            validation.touched.email && validation.errors.email
+                              ? true
+                              : false
                           }
                         />
                         {validation.touched.email && validation.errors.email ? (
-                          <FormFeedback type="invalid">{validation.errors.email}</FormFeedback>
+                          <FormFeedback type="invalid">
+                            {validation.errors.email}
+                          </FormFeedback>
                         ) : null}
                       </div>
 
                       <div className="mb-3">
-                        <Label className="form-label">Password</Label>
+                        <Label className="form-label">
+                          {t("login.password")}
+                        </Label>
                         <Input
                           name="password"
                           value={validation.values.password || ""}
                           type="password"
-                          placeholder="Enter Password"
+                          placeholder={t("login.enter-pass")}
                           onChange={validation.handleChange}
                           onBlur={validation.handleBlur}
                           invalid={
-                            validation.touched.password && validation.errors.password ? true : false
+                            validation.touched.password &&
+                            validation.errors.password
+                              ? true
+                              : false
                           }
                         />
-                        {validation.touched.password && validation.errors.password ? (
-                          <FormFeedback type="invalid">{validation.errors.password}</FormFeedback>
+                        {validation.touched.password &&
+                        validation.errors.password ? (
+                          <FormFeedback type="invalid">
+                            {validation.errors.password}
+                          </FormFeedback>
                         ) : null}
                       </div>
 
@@ -190,7 +215,7 @@ const Login = props => {
                           className="form-check-label"
                           htmlFor="customControlInline"
                         >
-                          Remember me
+                          {t("login.remember")}
                         </label>
                       </div>
 
@@ -199,12 +224,14 @@ const Login = props => {
                           className="btn btn-primary btn-block"
                           type="submit"
                         >
-                          Log In
+                          {t("login.log-in")}
                         </button>
                       </div>
 
                       <div className="mt-4 text-center">
-                        <h5 className="font-size-14 mb-3">Sign in with</h5>
+                        <h5 className="font-size-14 mb-3">
+                          {t("login.signin-with")}
+                        </h5>
 
                         <ul className="list-inline">
                           {/* <li className="list-inline-item">
@@ -266,7 +293,7 @@ const Login = props => {
                       <div className="mt-4 text-center">
                         <Link to="/forgot-password" className="text-muted">
                           <i className="mdi mdi-lock me-1" />
-                          Forgot your password?
+                          {t("login.forgot")}
                         </Link>
                       </div>
                     </Form>
@@ -275,15 +302,11 @@ const Login = props => {
               </Card>
               <div className="mt-5 text-center">
                 <p>
-                  Don&#39;t have an account ?{" "}
+                  {t("login.no-account")}
                   <Link to="/register" className="fw-medium text-primary">
                     {" "}
-                    Signup now{" "}
-                  </Link>{" "}
-                </p>
-                <p>
-                  © {new Date().getFullYear()} Skote. Crafted with{" "}
-                  <i className="mdi mdi-heart text-danger" /> by Themesbrand
+                    {t("login.signup-now")}
+                  </Link>
                 </p>
               </div>
             </Col>

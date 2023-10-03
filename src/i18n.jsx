@@ -1,12 +1,13 @@
-import i18n from "i18next"
-import detector from "i18next-browser-languagedetector"
-import { initReactI18next } from "react-i18next"
+import i18n from "i18next";
+import detector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
 
-import translationGr from "./locales/gr/translation.json"
-import translationIT from "./locales/it/translation.json"
-import translationRS from "./locales/rs/translation.json"
-import translationSP from "./locales/sp/translation.json"
-import translationENG from "./locales/eng/translation.json"
+import translationGr from "./locales/gr/translation.json";
+import translationIT from "./locales/it/translation.json";
+import translationRS from "./locales/rs/translation.json";
+import translationSP from "./locales/sp/translation.json";
+import translationENG from "./locales/eng/translation.json";
+import translationVN from "./locales/vn/translation.json";
 
 // the translations
 const resources = {
@@ -22,14 +23,17 @@ const resources = {
   sp: {
     translation: translationSP,
   },
-  eng: {
+  en: {
     translation: translationENG,
   },
-}
+  vn: {
+    translation: translationVN,
+  },
+};
 
-const language = localStorage.getItem("I18N_LANGUAGE")
+const language = localStorage.getItem("I18N_LANGUAGE");
 if (!language) {
-  localStorage.setItem("I18N_LANGUAGE", "en")
+  localStorage.setItem("I18N_LANGUAGE", "en");
 }
 
 i18n
@@ -40,11 +44,11 @@ i18n
     lng: localStorage.getItem("I18N_LANGUAGE") || "en",
     fallbackLng: "en", // use en if detected lng is not available
 
-    keySeparator: false, // we do not use keys in form messages.welcome
+    // keySeparator: false, // we do not use keys in form messages.welcome
 
     interpolation: {
       escapeValue: false, // react already safes from xss
     },
-  })
+  });
 
-export default i18n
+export default i18n;

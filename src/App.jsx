@@ -1,27 +1,30 @@
-import PropTypes from 'prop-types'
-import React from "react"
+import PropTypes from "prop-types";
+import React from "react";
 
-import { Switch, BrowserRouter as Router } from "react-router-dom"
-import { connect } from "react-redux"
+import { Switch, BrowserRouter as Router } from "react-router-dom";
+import { connect } from "react-redux";
 
 // Import Routes all
-import { authProtectedRoutes,publicRoutes } from "./routes"
+import { authProtectedRoutes, publicRoutes } from "./routes";
 
 // Import all middleware
-import Authmiddleware from "./routes/route"
+import Authmiddleware from "./routes/route";
 
 // layouts Format
-import VerticalLayout from "./components/VerticalLayout/"
-import HorizontalLayout from "./components/HorizontalLayout/"
-import NonAuthLayout from "./components/NonAuthLayout"
+import VerticalLayout from "./components/VerticalLayout/";
+import HorizontalLayout from "./components/HorizontalLayout/";
+import NonAuthLayout from "./components/NonAuthLayout";
+import { Route } from "react-router-dom";
 
 // Import scss
-import "./assets/scss/theme.scss"
+import "./assets/scss/theme.scss";
 
 // Import Firebase Configuration file
 // import { initFirebaseBackend } from "./helpers/firebase_helper"
 
 import fakeBackend from "/src/helpers/AuthType/fakeBackend";
+import Pages404 from "./pages/Utility/pages-404";
+import Pages500 from "./pages/Utility/pages-500";
 
 // Activating fake backend
 fakeBackend();
@@ -40,22 +43,21 @@ fakeBackend();
 // init firebase backend
 // initFirebaseBackend(firebaseConfig)
 
-const App = props => {
-
+const App = (props) => {
   function getLayout() {
-    let layoutCls = VerticalLayout
+    let layoutCls = VerticalLayout;
     switch (props.layout.layoutType) {
       case "horizontal":
-        layoutCls = HorizontalLayout
-        break
+        layoutCls = HorizontalLayout;
+        break;
       default:
-        layoutCls = VerticalLayout
-        break
+        layoutCls = VerticalLayout;
+        break;
     }
-    return layoutCls
+    return layoutCls;
   }
-                
-  const Layout = getLayout()
+
+  const Layout = getLayout();
   return (
     <React.Fragment>
       <Router>
@@ -81,20 +83,21 @@ const App = props => {
               exact
             />
           ))}
+          <Route component={Pages404} />
         </Switch>
       </Router>
     </React.Fragment>
-  )
-}
+  );
+};
 
 App.propTypes = {
-  layout: PropTypes.any
-}
+  layout: PropTypes.any,
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     layout: state.Layout,
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, null)(App)
+export default connect(mapStateToProps, null)(App);
